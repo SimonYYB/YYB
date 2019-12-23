@@ -8,6 +8,13 @@
 		<link rel="stylesheet" type="text/css" href="./css/index.css">
 		<link rel="stylesheet" type="text/css" media="(max-width:768px )" href="./css/mobile.css">
 	</head>
+	<style type="text/css">
+		.iitem:hover{
+			background: white;
+			box-shadow: 0 0 10px 5px skyblue;
+			transition: box-shadow 1s, background 1s, transform 1s; 
+		}
+	</style>
 	<body>
 		<div class="side-bar">
 			<label for="menu-checkbox" id="menu-toggle">Menu</label>
@@ -31,7 +38,14 @@
 		</div>
 		<div class="main">
 			<div class="article-list">
-				<div class="item">
+				<div class="item iitem">
+					<a href="./article/article2.html" class="title">HDU ACM Problem-2034</a>
+					<div class="status">发布于：2019-12-23 | 1999次阅读 | 标签: #开始 #个人</div>
+					<div class="content">
+						开胃题，水过"*★,°*:.☆(￣▽￣)/$:*.°★* 。" <br><br>
+					</div>
+				</div>
+				<div class="item iitem">
 					<a href="./article/article1.html" class="title">Reason For Why I Am Build This Personal Blog</a>
 					<div class="status">发布于：2019-12-22 | 1999次阅读 | 标签: #开始 #个人</div>
 					<div class="content">
@@ -39,6 +53,7 @@
 						And Record My Life！
 					</div>
 				</div>
+				
 				<div style="height:750px">
 				</div>				
 			</div>
