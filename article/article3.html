@@ -8,6 +8,16 @@
 		<link rel="stylesheet" type="text/css" href="../css/index.css">
 		<link rel="stylesheet" type="text/css" media="(max-width:768px )" href="../css/mobile.css">
 	</head>
+	<style type="text/css">
+		.iitem{
+			transition: box-shadow 0.5s, background 0.5s, transform 0.5s
+		}
+		.iitem:hover{
+			background: white;
+			box-shadow: 0 0 10px 5px skyblue;
+			transform: scale(1.1);
+		}
+	</style>
 	<body>
 		<div class="side-bar">
 			<label for="menu-checkbox" id="menu-toggle">Menu</label>
@@ -33,7 +43,7 @@
 			<div class="article">
 				<div class="item">
 					<h1 class="title" style="font-size: 50px">Stack Realize Creat,Push,Out and Ergodic By C language </h1>
-					<div class="status" >发布于：2019-12-22 | 1534次阅读 | 标签: #数据结构</div>
+					<div class="status" >发布于：2019-12-24 | 2048次阅读 | 标签: #数据结构</div>
 					<div class="content" style="font-size:30px;">
 						<div style="font-size: 120%">Stack</div>
 						<div style="background: #545454;color:white;width:98%;height:150%;padding: 1%;box-shadow: 0 0 50px 2px black">
@@ -41,7 +51,7 @@
 								栈（Stack）是基础的数据结构，会使用栈可以很轻松的解决某些问题 <br>现在让我们一起学起来😁 <br>
 
 								一、Define Stack
-								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+								<div class="iitem" style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
 									首先对栈进行定义，构建一个简单的结构体，采用typedef struct 的类型，然后包含栈顶、栈底和栈内元素三个部分。<br>
 									下述代码表示构建一个名字是stack类型的结构体，包含三个部分。数据、栈顶、栈底。
 								</div>
@@ -57,7 +67,7 @@
 									</div>
 								</div>
 								二、Create Stack
-								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+								<div class="iitem" style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
 									然后是栈的构建，来为栈开辟内存空间，存储我们进行入站出栈的元素。只需在栈操作开始前进行一次栈的构建即可，无需重复。 <br>
 									下述代码段为向p内分配内存，成功就返回p
 								</div>
@@ -76,7 +86,7 @@
 									</div>
 								</div>
 								三、Push Stack
-								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+								<div class="iitem" style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
 									栈构建完毕后就开始进行栈的操作了，首先就是如何将字符、数字等我们想要的内容送入栈中，就需要进行入栈操作。 <br>
 									将字符str存入栈中，位置为top，只存在data中，然后栈top++
 								</div>
@@ -91,7 +101,7 @@
 									</div>
 								</div>
 								三、Out Stack
-								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+								<div class="iitem" style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
 									当我们要查看栈顶元素时，就用到了出栈。 <br>
 									因为top位置为栈顶值的下一个，因此将data中top-1的值输出，栈顶top--，返回的值为栈顶元素str
 								</div>
@@ -111,7 +121,7 @@
 									</div>
 								</div>
 								四、Ergodic Stack
-								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+								<div class="iitem" style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
 									如果我们想输出栈内所有元素，那么就要用到遍历。<br>
 									从栈顶元素开始，直到top==bottom为止，输出其中data存储的元素值（这会丢失Top，不会清空栈）
 								</div>
@@ -123,6 +133,80 @@
 		printf("%c",p->data[p->top-1]);
 		p->top--;
 	}
+}</xmp>
+									<br>
+									</div>
+								</div>
+								四、Easy Sample
+								<div class="iitem" style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+									下面是一个简单的例子，我们将字符、字符串分别入栈然后输出 <br>
+								</div>
+								<div>
+									Code
+									<div style="background: #636363;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: #EDEDED;padding: 1%;">
+									<xmp style="margin-top:-5px;margin-bottom: -25px">#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+typedef struct stack{
+	char data[10];
+	int top;
+	int bottom;
+}stack;
+
+stack *stackCreate(){
+	stack *p = (stack*)malloc(sizeof(stack));
+	if (p==NULL)
+		return 0;
+	p->bottom=p->top=0;
+	return p;
+}
+
+void stackInput(stack* p,char str){
+	p->data[p->top]=str;
+	p->top++;
+}
+
+char stackOutput(stack *p){
+	char str;
+	if(p->top!=p->bottom){//栈非空 
+		str=p->data[p->top-1];//栈顶内容输出 
+		p->top--;//栈顶减1 
+		return str;
+	}
+}
+
+void stackprint(stack *p){
+	while(p->top!=p->bottom){
+		printf("%c ",p->data[p->top-1]);
+		p->top--;
+	}
+	printf("\n");
+}
+
+int main(int argc, char const *argv[])
+{
+	int i,j,n;
+	char s;
+	stack *p; //define a stack as p
+	p = stackCreate(); //create stack 
+	stackInput(p,'a'); //push char 'a' in stack
+	stackInput(p,'b');
+	stackInput(p,'c');
+	stackInput(p,'d');
+	stackprint(p); //ergodic stack 
+	char c;
+	char ss[] = "ABCDEFG"; //define a char list as ss
+	for (int i = 0; i < strlen(ss); ++i)
+	{
+		stackInput(p,ss[i]); //gradually push char in ss in stack
+	}
+	for (int i = 0; i < strlen(ss); ++i)
+	{
+		c = stackOutput(p); //gradually out stack
+		printf("%c ",c);
+	}
+	printf("\n%c\n",p->data[6]); //although the top as zero we also can output data that origin top 
+	return 0;
 }</xmp>
 									<br>
 									</div>
