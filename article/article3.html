@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width", initial-scale="1.0">
+		<title>😄YYB's Blog</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/5.0.0/normalize.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<link rel="stylesheet" type="text/css" media="(max-width:768px )" href="../css/mobile.css">
+	</head>
+	<body>
+		<div class="side-bar">
+			<label for="menu-checkbox" id="menu-toggle">Menu</label>
+			<input type="checkbox" id="menu-checkbox">
+			<div class="header">
+				<a href="../index.html" class="logo">YYB's Blog</a>
+				<div class="intro">Welcome To My Blog.<br>Wish You Guys Like This!</div>
+			</div>
+			<div class="nav">
+				<a href="../study.html" class="item">Math&English</a>
+				<a href="../network.html" class="item">Network</a>
+				<a href="../imformation.html" class="item">ImformationSecurity</a>
+				<a href="../soft.html" class="item">DataStructure&Algorithm</a>
+				<a href="../sw.html" class="item">Switch&Routing</a>
+				<a href="../server.html" class="item">Server</a>
+			</div>
+			<div class="tag-list">
+				<a href="../article/about.html" class="item">About Me</a>
+				<a href="../article/contact.html" class="item">Contact Me</a>
+			</div>
+		</div>
+		<div class="main">
+			<div class="article">
+				<div class="item">
+					<h1 class="title" style="font-size: 50px">Stack Realize Creat,Push,Out and Ergodic By C language </h1>
+					<div class="status" >发布于：2019-12-22 | 1534次阅读 | 标签: #数据结构</div>
+					<div class="content" style="font-size:30px;">
+						<div style="font-size: 120%">Stack</div>
+						<div style="background: #545454;color:white;width:98%;height:150%;padding: 1%;box-shadow: 0 0 50px 2px black">
+							<div style="">
+								栈（Stack）是基础的数据结构，会使用栈可以很轻松的解决某些问题 <br>现在让我们一起学起来😁 <br>
+
+								一、Define Stack
+								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+									首先对栈进行定义，构建一个简单的结构体，采用typedef struct 的类型，然后包含栈顶、栈底和栈内元素三个部分。<br>
+									下述代码表示构建一个名字是stack类型的结构体，包含三个部分。数据、栈顶、栈底。
+								</div>
+								<div>
+									Code
+									<div style="background: #636363;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: #EDEDED;padding: 1%;">
+									<xmp style="margin-top:-5px;margin-bottom: -25px">typedef struct{
+	char data[100];
+	int top;
+	int bottom;
+}stack;</xmp>
+									<br>
+									</div>
+								</div>
+								二、Create Stack
+								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+									然后是栈的构建，来为栈开辟内存空间，存储我们进行入站出栈的元素。只需在栈操作开始前进行一次栈的构建即可，无需重复。 <br>
+									下述代码段为向p内分配内存，成功就返回p
+								</div>
+								<div>
+									Code
+									<div style="background: #636363;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: #EDEDED;padding: 1%;">
+									<xmp style="margin-top:-5px;margin-bottom: -25px">stack *StackCreate(){
+	stack *p=(stack*)malloc(sizeof(stack));//分配新空间 
+	if(p==NULL)//分配失败 
+	return 0;
+	p->bottom=p->top=0;//分配成功 
+	return p;
+}
+</xmp>
+									<br>
+									</div>
+								</div>
+								三、Push Stack
+								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+									栈构建完毕后就开始进行栈的操作了，首先就是如何将字符、数字等我们想要的内容送入栈中，就需要进行入栈操作。 <br>
+									将字符str存入栈中，位置为top，只存在data中，然后栈top++
+								</div>
+								<div>
+									Code
+									<div style="background: #636363;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: #EDEDED;padding: 1%;">
+									<xmp style="margin-top:-5px;margin-bottom: -25px">void StackInput(stack *p,char str){
+	p->data[p->top]=str;//存入栈中 
+	p->top++;//栈顶指针加1 
+}</xmp>
+									<br>
+									</div>
+								</div>
+								三、Out Stack
+								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+									当我们要查看栈顶元素时，就用到了出栈。 <br>
+									因为top位置为栈顶值的下一个，因此将data中top-1的值输出，栈顶top--，返回的值为栈顶元素str
+								</div>
+								<div>
+									Code
+									<div style="background: #636363;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: #EDEDED;padding: 1%;">
+									<xmp style="margin-top:-5px;margin-bottom: -25px">char StackOutput(stack *p){
+	char str;
+	if(p->top!=p->bottom){//栈非空 
+		str=p->data[p->top-1];//栈顶内容输出 
+		p->top--;//栈顶减1 
+		return str;
+	}
+}
+</xmp>
+									<br>
+									</div>
+								</div>
+								四、Ergodic Stack
+								<div style="background: #EFEFEF;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: black;padding: 1%;">
+									如果我们想输出栈内所有元素，那么就要用到遍历。<br>
+									从栈顶元素开始，直到top==bottom为止，输出其中data存储的元素值（这会丢失Top，不会清空栈）
+								</div>
+								<div>
+									Code
+									<div style="background: #636363;height: 100%;width: 98%;box-shadow:0 0 5px 2px skyblue;font-size:50%;color: #EDEDED;padding: 1%;">
+									<xmp style="margin-top:-5px;margin-bottom: -25px">void StackPrint(stack *p){
+	while(p->top!=p->bottom){
+		printf("%c",p->data[p->top-1]);
+		p->top--;
+	}
+}</xmp>
+									<br>
+									</div>
+								</div>
+							</div>
+							<div style="height:50px"></div>
+						</div>
+					</div>
+				</div>	
+				<div style="height:300px"></div>			
+			</div>
+			<footer>
+				<a href="#" class="item" >Contact</a> | <a href="#" class="item" >Privacy</a> | <a href="#" class="item" >About</a> | <a href="#" class="item" >Feedback</a> | <a href="#" class="item" >Complaint</a> | <a href="#" class="item" >Help</a><br>
+				COPYRIGHT &copy; 7/7/2018 YYB. ALL REGHTS RESERVED.<br>
+				YYB 版权所有
+			</footer>
+		</div>
+	</body>
+</html>
