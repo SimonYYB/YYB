@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width", initial-scale="1.0">
+		<title>😄YYB's Blog</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/5.0.0/normalize.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<link rel="stylesheet" type="text/css" media="(max-width:768px )" href="../css/mobile.css">
+	</head>
+	<body>
+		<div class="side-bar">
+			<label for="menu-checkbox" id="menu-toggle">Menu</label>
+			<input type="checkbox" id="menu-checkbox">
+			<div class="header">
+				<a href="../index.html" class="logo">YYB's Blog</a>
+				<div class="intro">Welcome To My Blog.<br>Wish You Guys Like This!</div>
+			</div>
+			<div class="nav">
+				<a href="../study.html" class="item">Math&English</a>
+				<a href="../network.html" class="item">Network</a>
+				<a href="../imformation.html" class="item">ImformationSecurity</a>
+				<a href="../soft.html" class="item">DataStructure&Algorithm</a>
+				<a href="../sw.html" class="item">Switch&Routing</a>
+				<a href="../server.html" class="item">Server</a>
+			</div>
+			<div class="tag-list">
+				<a href="../article/about.html" class="item">About Me</a>
+				<a href="../article/contact.html" class="item">Contact Me</a>
+			</div>
+		</div>
+		<div class="main">
+			<div class="article">
+				<div class="item">
+					<h1 class="title" style="font-size: 50px">二叉树的遍历</h1>
+					<div class="status" >发布于：2020-01-12 | ????次阅读 | 标签: #数据结构</div>
+					<div class="content" style="font-size:30px;">
+						<div><br>这篇文章将介绍如何使用递归的方式进行二叉树的遍历</div>
+						<br>
+						<div>In The First, should you know what is DLR, LDR and LRD</div>
+						<div style="box-shadow: 0 0 10px 1px skyblue;padding: 2%;font-size: 80% ">
+							DLR: <br>
+							又叫做前序遍历、先根遍历、根左右，遍历顺序为根→左子树→右子树 <br>
+							Use Picture Show You Can Be Easy <br>
+							<img src="../img/BT/sample1.png" style="height: 80%;width:80%"> <br>
+							As the image, result is "ABDECFG" <br><br>
+							LDR: <br>
+							又叫做中序遍历、中根遍历、左根右，遍历顺序为：左子树→根→右子树 <br>
+							
+							<img src="../img/BT/sample1.png" style="height: 80%;width:80%"> <br>
+							As the image, result is "DBEAFCG" <br><br>
+							LRD: <br>
+							又叫做后序遍历、后根遍历、左右根，遍历顺序为左子树→右子树→根 <br>
+							
+							<img src="../img/BT/sample1.png" style="height: 80%;width:80%"> <br>
+							As the image, result is "DEBFGCA" <br>
+						</div>
+						<br>
+						<div>
+							If you understand that above, We can next!
+							<div>
+								One: create binary tree <br>
+								Tips: before create you should know struct and pointer
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct TreeNode{
+	int val;
+	struct TreeNode* left;
+	struct TreeNode* right;
+}Node;
+
+int main()
+{
+	//sample Tree:
+	Node n1,n2,n3,n4;
+	n1.val = 1;
+	n3.val = 2;
+	n4.val = 3;
+
+	n1.left = NULL;
+	n1.right = &n3;
+	n3.left  = &n4;
+	n3.right = NULL;
+	n4.left  = NULL;
+	n4.right = NULL;
+	return 0;
+}
+								</xmp>
+							</div>
+							<div>
+								Two: To write Preorder function <br>
+								<div style="font-size: 60%">我使用了一个数组去存放结果，所以函数有一个参数为结果数组指针和一个结果数组下表的指针(函数内部要改变参数的值，使用指针比较方便)</div>
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+void preorder(struct TreeNode* root,int* index, int* res){
+	if (root != NULL)
+	{
+		res[(*index)++] = root -> val;
+		if (root -> left  != NULL)
+		{
+			preorder(root->left,index,res);
+		}
+		if (root -> right != NULL)
+		{
+			preorder(root->right,index,res);
+		}
+	}
+}
+								</xmp>
+							</div>
+							<div>
+								Two: To write Inorder function <br>
+								<div style="font-size: 60%"></div>
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+void inorder(struct TreeNode* root, int* inde, int* res){
+	if(root != NULL){
+		if (root->left != NULL)
+		{
+			inorder(root->left, inde, res);
+		}
+		res[(*inde)++] = root->val;
+		if (root->right != NULL)
+		{
+			inorder(root->right, inde, res);
+		}
+	}
+}
+								</xmp>
+							</div>
+							<div>
+								Three: To write Postorder function <br>
+								<div style="font-size: 60%"></div>
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+void postorder(struct TreeNode* root,int* index,int* res){
+	if (root!=NULL){
+		if(root->left != NULL){
+			postorder(root->left,index,res);
+		}
+		if(root->right != NULL){
+			postorder(root->right,index,res);
+		}
+		res[(*index)++] = root->val;
+	}
+}
+								</xmp>
+							</div>
+							<div>
+								Four: Now your realize it's easy absolutely! <br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;They are difference just in order. <br>
+								In the next, complete main function.
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+int main()
+{
+	//sample Tree:
+	Node n1,n2,n3,n4;
+	n1.val = 1;
+	n3.val = 2;
+	n4.val = 3;
+
+	n1.left = NULL;
+	n1.right = &n3;
+	n3.left  = &n4;
+	n3.right = NULL;
+	n4.left  = NULL;
+	n4.right = NULL;
+
+	int index = 0;
+	int* res = (int*)malloc(sizeof(int)*100);
+	preorder(&n1,&index,res);
+	for (int i = 0; i < index; ++i)
+	{
+		printf("%3d",res[i]);
+	}
+	return 0;
+}
+								</xmp> 
+							</div>
+							<div>
+								Five: show you the all content <br>You can verify the result by changing the order function to any of the three different functions above.
+
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct TreeNode{
+	int val;
+	struct TreeNode* left;
+	struct TreeNode* right;
+}Node;
+
+void preorder(struct TreeNode* root,int* index, int* res){
+	if (root != NULL)
+	{
+		res[(*index)++] = root -> val;
+		if (root -> left  != NULL)
+		{
+			preorder(root->left,index,res);
+		}
+		if (root -> right != NULL)
+		{
+			preorder(root->right,index,res);
+		}
+	}
+}
+void inorder(struct TreeNode* root, int* index, int* res){
+	if(root != NULL){
+		if (root->left != NULL)
+		{
+			inorder(root->left, index, res);
+		}
+		res[(*index)++] = root->val;
+		if (root->right != NULL)
+		{
+			inorder(root->right, index, res);
+		}
+	}
+}
+void postorder(struct TreeNode* root,int* returnSize,int* res){
+	if (root!=NULL){
+		if(root->left != NULL){
+			postorder(root->left,returnSize,res);
+		}
+		if(root->right != NULL){
+			postorder(root->right,returnSize,res);
+		}
+		res[(*returnSize)++] = root->val;
+	}
+}
+
+int main()
+{
+	//sample Tree:
+	Node n1,n2,n3,n4;
+	n1.val = 1;
+	n3.val = 2;
+	n4.val = 3;
+
+	n1.left = NULL;
+	n1.right = &n3;
+	n3.left  = &n4;
+	n3.right = NULL;
+	n4.left  = NULL;
+	n4.right = NULL;
+
+	int index = 0;
+	int* res = (int*)malloc(sizeof(int)*100);
+	preorder(&n1,&index,res);
+	for (int i = 0; i < index; ++i)
+	{
+		printf("%3d",res[i]);
+	}
+	return 0;
+}
+								</xmp> 
+							</div>
+							<div>
+								Improved version
+								<xmp style="background: #165858;color: orange;line-height: 90%;border:solid gray 1px;box-shadow: 0 0 10px 1px brown;font-size: 80%;padding: 0 10px 0 10px">
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct TreeNode{
+	char val;
+	struct TreeNode* left;
+	struct TreeNode* right;
+}Node;
+
+void preorder(struct TreeNode* root,int* index, int* res){
+	if (root != NULL)
+	{
+		res[(*index)++] = root -> val;
+		if (root -> left  != NULL)
+		{
+			preorder(root->left,index,res);
+		}
+		if (root -> right != NULL)
+		{
+			preorder(root->right,index,res);
+		}
+	}
+}
+void inorder(struct TreeNode* root, int* index, int* res){
+	if(root != NULL){
+		if (root->left != NULL)
+		{
+			inorder(root->left, index, res);
+		}
+		res[(*index)++] = root->val;
+		if (root->right != NULL)
+		{
+			inorder(root->right, index, res);
+		}
+	}
+}
+void postorder(struct TreeNode* root,int* returnSize,int* res){
+	if (root!=NULL){
+		if(root->left != NULL){
+			postorder(root->left,returnSize,res);
+		}
+		if(root->right != NULL){
+			postorder(root->right,returnSize,res);
+		}
+		res[(*returnSize)++] = root->val;
+	}
+}
+
+int main()
+{
+	//sample Tree:
+	Node n1,n2,n3,n4,n5,n6,n7;
+	n1.val = 1;
+	n2.val = 2;
+	n3.val = 3;
+	n4.val = 4;
+	n5.val = 5;
+	n6.val = 6;
+	n7.val = 7;
+
+	n1.left  = &n2;
+	n1.right = &n3;
+	n2.left  = &n4;
+	n2.right = &n5;
+	n3.left  = &n6;
+	n3.right = &n7;
+	n4.left  = NULL;
+	n4.right = NULL;
+	n5.left  = NULL;
+	n5.right = NULL;
+	n6.left  = NULL;
+	n6.right = NULL;
+	n7.left  = NULL;
+	n7.right = NULL;
+	int index1 = 0;
+	int* res1 = (int*)malloc(sizeof(int)*100);
+	preorder(&n1,&index1,res1);
+	printf("preorder: ");
+	for (int i = 0; i < index1; ++i)
+	{
+		printf("%3d",res1[i]);
+	}
+	printf("\n");
+	int index2 = 0;
+	int* res2 = (int*)malloc(sizeof(int)*100);
+	inorder(&n1,&index2,res2);
+	printf("inorder:  ");
+	for (int i = 0; i < index2; ++i)
+	{
+		printf("%3d",res2[i]);
+	}
+	printf("\n");
+	int index3 = 0;
+	int* res3 = (int*)malloc(sizeof(int)*100);
+	postorder(&n1,&index3,res3);
+	printf("postorder:");
+	for (int i = 0; i < index3; ++i)
+	{
+		printf("%3d",res3[i]);
+	}
+	printf("\n");
+	return 0;
+}
+								</xmp> 
+							</div>
+							<div>
+								If you find some problem in there please contact me, thanks!
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div style="height:300px"></div>			
+			</div>
+			<footer>
+				<a href="#" class="item" >Contact</a> | <a href="#" class="item" >Privacy</a> | <a href="#" class="item" >About</a> | <a href="#" class="item" >Feedback</a> | <a href="#" class="item" >Complaint</a> | <a href="#" class="item" >Help</a><br>
+				COPYRIGHT &copy; 7/7/2018 YYB. ALL REGHTS RESERVED.<br>
+				YYB 版权所有
+			</footer>
+		</div>
+	</body>
+</html>
