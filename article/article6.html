@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width", initial-scale="1.0">
+		<title>😄YYB's Blog</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/5.0.0/normalize.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<link rel="stylesheet" type="text/css" media="(max-width:768px )" href="../css/mobile.css">
+	</head>
+	<body>
+		<div class="side-bar">
+			<label for="menu-checkbox" id="menu-toggle">Menu</label>
+			<input type="checkbox" id="menu-checkbox">
+			<div class="header">
+				<a href="../index.html" class="logo">YYB's Blog</a>
+				<div class="intro">Welcome To My Blog.<br>Wish You Guys Like This!</div>
+			</div>
+			<div class="nav">
+				<a href="../study.html" class="item">Math&English</a>
+				<a href="../network.html" class="item">Network</a>
+				<a href="../imformation.html" class="item">ImformationSecurity</a>
+				<a href="../soft.html" class="item">DataStructure&Algorithm</a>
+				<a href="../sw.html" class="item">Switch&Routing</a>
+				<a href="../server.html" class="item">Server</a>
+			</div>
+			<div class="tag-list">
+				<a href="../article/about.html" class="item">About Me</a>
+				<a href="../article/contact.html" class="item">Contact Me</a>
+			</div>
+		</div>
+		<div class="main">
+			<div class="article">
+				<div class="item">
+					<h1 class="title" style="font-size: 50px">Rebuild BinaryTree By Preorder&&Inorder or Inorder&&Postorder</h1>
+					<div class="status" >发布于：2020-01-24 | 20124次阅读 | 标签: #数据结构 #C Language</div>
+					<div class="content" style="font-size:30px;">
+						<div>
+							今天是除夕哦~<br>大家新年快乐！\^o^/ <br>
+						</div>
+						<div>
+							<br>二叉树的先序遍历、中序遍历、后序遍历有什么用呢? <br>
+							这篇文章将介绍它们的用处之一 <br>
+						</div>
+						<img src="../img/rebuildBinaryTree/buildTree.png" style="width: 106%;margin: 20px -2% 10px -3%;box-shadow: 0 1px 10px 1px #323232">
+					</div>
+					<div style="font-size: 120%">
+						LeetCode:从前序与中序遍历序列构造二叉树
+						<pre style="box-shadow: 0 0 10px 1px #323232;background-color: #232323;color: #239415;padding: 10px;margin: -10px;margin-top: 15px;">
+struct TreeNode* buildTree(int* preorder, int preorderSize, int* inorder, int inorderSize){
+    if (inorderSize <= 0)
+        return NULL;
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = preorder[0];
+    int index = 0;
+    while(index < inorderSize && inorder[index] != root->val)
+        index++;
+    root->left  = buildTree(preorder+1, index, inorder, index);
+    root->right = buildTree(preorder+index+1,preorderSize-index-1,inorder+index+1,inorderSize-index-1);
+    return root;
+}</pre>
+					</div>
+					<div style="font-size: 120%;margin-top: 25px;">
+						LeetCode:从中序与后序遍历序列构造二叉树
+						<pre style="box-shadow: 0 0 10px 1px #323232;background-color: #232323;color: #239415;padding: 10px;margin: -10px;margin-top: 15px;">
+struct TreeNode* buildTree(int* inorder, int inorderSize, int* postorder, int postorderSize){
+    if (inorderSize <= 0)
+    	return NULL;
+    struct TreeNode* root = (struct TreeNode *)malloc(sizeof(struct TreeNode));
+    root->val = postorder[postorderSize - 1];
+    int index = 0;
+    while (index < inorderSize && inorder[index] != root->val)
+    	++index;
+    root->left  = buildTree(inorder, index, postorder, index);
+    root->right = buildTree(inorder+index+1,inorderSize-index-1,postorder+index,postorderSize-index-1);
+    return root;
+}</pre>
+					</div>
+				</div>			
+			</div>
+			<footer>
+				<a href="#" class="item" >Contact</a> | <a href="#" class="item" >Privacy</a> | <a href="#" class="item" >About</a> | <a href="#" class="item" >Feedback</a> | <a href="#" class="item" >Complaint</a> | <a href="#" class="item" >Help</a><br>
+				COPYRIGHT &copy; 7/7/2018 YYB. ALL REGHTS RESERVED.<br>
+				YYB 版权所有
+			</footer>
+		</div>
+	</body>
+</html>
