@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width", initial-scale="1.0">
+		<title>😄YYB's Blog</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/normalize/5.0.0/normalize.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<link rel="stylesheet" type="text/css" media="(max-width:768px )" href="../css/mobile.css">
+	</head>
+	<body>
+		<div class="side-bar">
+			<label for="menu-checkbox" id="menu-toggle">Menu</label>
+			<input type="checkbox" id="menu-checkbox">
+			<div class="header">
+				<a href="../index.html" class="logo">YYB's Blog</a>
+				<div class="intro">Welcome To My Blog.<br>Wish You Guys Like This!</div>
+			</div>
+			<div class="nav">
+				<a href="../study.html" class="item">Math&English</a>
+				<a href="../network.html" class="item">Network</a>
+				<a href="../imformation.html" class="item">ImformationSecurity</a>
+				<a href="../soft.html" class="item">DataStructure&Algorithm</a>
+				<a href="../sw.html" class="item">Switch&Routing</a>
+				<a href="../server.html" class="item">Server</a>
+			</div>
+			<div class="tag-list">
+				<a href="../article/about.html" class="item">About Me</a>
+				<a href="../article/contact.html" class="item">Contact Me</a>
+			</div>
+		</div>
+		<div class="main">
+			<div class="article">
+				<div class="item">
+					<h1 class="title" style="font-size: 50px">Binary Levelorder</h1>
+					<div class="status" >发布于：2020-02-20 | 1024次阅读 | 标签: #数据结构 #C Language</div>
+				</div>
+				<div style="margin-top:5%;background-image: linear-gradient(to right,#e66465,#9198e5,#BA314D);padding: 10px;border-radius: 2px;">
+					<div style="color: white;font-size: 150%">
+						levelorder or leveltravel 层次遍历，是一种根据树的层次关系的遍历方法 <br>
+                        如下图所示简单的二叉树 <br>
+                        level: <br>
+                        &emsp;&emsp;level1: 1 <br>
+                        &emsp;&emsp;level2: 2 3 <br>
+                        &emsp;&emsp;level3: 4 5 6 7 <br>
+                        result: <br>
+                        &emsp;&emsp;1 2 3 4 5 6 7
+					</div>
+				</div>
+				<div>
+					<img src="../img/levelorder/1.png" style="width: 100%">
+				</div>
+                <div style="font-size: 150%;box-shadow: 0 0 10px 2px;border-radius: 3px;padding: 10px;">
+                    levelorder different with preorder,inorder,and postorder. <br>
+                    levelorder need queue help to realize. <br>
+                </div>
+                <div>
+                    <h1>Theory</h1>
+                    <div>
+                       <h2>use above image to example</h2>
+                        <div style="font-weight: 520">
+                        &emsp;&emsp;suppose now we have a queue same like this 👇 <br>
+                            <img src="../img/levelorder/2.png"> <br>
+                        &emsp;&emsp;But now it's empty. Don't about that, it will be used soon <br>
+                        &emsp;&emsp;except queue we also have a root of Tree. Tree is this tree👇 <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img src="../img/levelorder/3.png"><br>
+                        &emsp;&emsp;Normal recursion can't both goto left child and right child. <br>
+                        &emsp;&emsp;at this time is queue show time.<br>
+                        <img src="../img/levelorder/4.gif" style="width: 100%;">
+                        </div>
+                        <h2>Queue define</h2>
+                        &emsp;&emsp;queue to store node pointer. <br>
+                        <div style="font-weight: 520">
+                            <xmp style="line-height: 0.95;font-size:180%;background: #513024;padding:10px;color: #ADFFDA;box-shadow:0 0 15px 2px #139586;border-radius: 5px;font-weight: 600;">typedef struct Queue{
+    node* arr[100];
+    int head;
+    int rear;
+}queue;
+</xmp>
+                        </div>
+                        <h2>levelorder fuction</h2>
+                        <div style="font-weight: 520">
+                            <xmp style="line-height: 0.95;font-size:180%;background: #513024;padding:10px;color: #ADFFDA;box-shadow:0 0 15px 2px #139586;border-radius: 5px;font-weight: 600;">void levelorder(node* root, queue* q)
+{
+    if (root) {
+        printf("%d ",root->val);
+        if (root->left) {
+            q->arr[q->rear++] = root->left;
+        }
+        if (root->right) {
+            q->arr[q->rear++] = root->right;
+        }
+    }
+    if(q->head != q->rear)
+        levelorder(q->arr[q->head++],q);
+}
+</xmp>
+                        </div>
+                        <h2>All code</h2>
+                        <div style="font-weight: 520">
+                            <xmp style="line-height: 0.95;font-size:180%;background: #513024;padding:10px;color: #ADFFDA;box-shadow:0 0 15px 2px #139586;border-radius: 5px;font-weight: 600;">#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct TreeNode{
+    int val;
+    struct TreeNode* left;
+    struct TreeNode* right;
+}node;
+
+typedef struct Queue{
+    node* arr[100];
+    int head;
+    int rear;
+}queue;
+
+node* creatnode()
+{
+    node* root  = (node*)malloc(sizeof(node));
+    root->left  = NULL;
+    root->right = NULL;
+    return root;
+}
+
+queue* creatqueue()
+{
+    queue* q = (queue*)malloc(sizeof(queue));
+    q->head = 0;
+    q->rear = 0;
+}
+
+void levelorder(node* root, queue* q)
+{
+    if (root) {
+        printf("%d ",root->val);
+        if (root->left) {
+            q->arr[q->rear++] = root->left;
+        }
+        if (root->right) {
+            q->arr[q->rear++] = root->right;
+        }
+    }
+    if(q->head != q->rear)
+        levelorder(q->arr[q->head++],q);
+}
+
+int main()
+{
+    node* n1 = creatnode();
+    node* n2 = creatnode();
+    node* n3 = creatnode();
+    node* n4 = creatnode();
+    node* n5 = creatnode();
+    node* n6 = creatnode();
+    node* n7 = creatnode();
+
+    n1->val = 1;
+    n2->val = 2;
+    n3->val = 3;
+    n4->val = 4;
+    n5->val = 5;
+    n6->val = 6;
+    n7->val = 7;
+
+    n1->left  = n2;
+    n1->right = n3;
+    n2->left  = n4;
+    n2->right = n5;
+    n3->left  = n6;
+    n3->right = n7; 
+
+    queue* q = creatqueue();
+    levelorder(n1,q);
+
+    return 0;
+}</xmp>                 </div>
+                    </div>
+                </div>
+			</div>
+			<footer>
+				<a href="#" class="item" >Contact</a> | <a href="#" class="item" >Privacy</a> | <a href="#" class="item" >About</a> | <a href="#" class="item" >Feedback</a> | <a href="#" class="item" >Complaint</a> | <a href="#" class="item" >Help</a><br>
+				COPYRIGHT &copy; 7/7/2018 YYB. ALL REGHTS RESERVED.<br>
+				YYB 版权所有
+			</footer>
+		</div>
+	</body>
+</html>
